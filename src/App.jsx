@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Diary from "./pages/Diary";
 import NotFound from "./pages/NotFound";
+import { getEmotionImage } from "./util/get-emotion-image";
+
 //1. "/" : Home for Emotion Diary
 //2. "/new" : write new diary
 //3. "/dirary" : viewing diary contents
@@ -15,6 +17,16 @@ function App() {
   };
   return (
     <>
+      <div>
+        <img src={getEmotionImage(1)} />{" "}
+        {/* image bit optimization, data uri format, 
+        if refresh, we could get image from cache. 
+        But too many images could slow down initial load. */}
+        <img src={getEmotionImage(2)} />
+        <img src={getEmotionImage(3)} />
+        <img src={getEmotionImage(4)} />
+        <img src={getEmotionImage(5)} />
+      </div>
       <div>
         <Link to="/">Home</Link> | <Link to="/new">New Diary</Link> |{" "}
         <Link to="/diary">Diary</Link>
