@@ -4,35 +4,54 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Diary from "./pages/Diary";
 import NotFound from "./pages/NotFound";
+import Edit from "./pages/Edit";
+
 import { getEmotionImage } from "./util/get-emotion-image";
 import Button from "./components/button";
 import Header from "./components/Header";
+
+import { useReducer } from "react";
 //1. "/" : Home for Emotion Diary
 //2. "/new" : write new diary
 //3. "/dirary" : viewing diary contents
+//4. "/edit" : editing diary contents
+
+const tempData = [
+  {
+    id: 1,
+    createdDate: new Date().getTime(),
+    emotionid: 1,
+    content: "Today I felt so happy!",
+  },
+  {
+    id: 2,
+    createdDate: new Date().getTime(),
+    emotionid: 2,
+    content: "Today I felt sad.",
+  },
+];
+
+function reducer(state, action) {
+  return state;
+}
 
 function App() {
-  const nav = useNavigate();
-  const onClickBtn = () => {
-    nav("/new");
-  };
+  const [data, dispatch] = useReducer(reducer, tempData);
+
   return (
     <>
-      <Header
+      {/* <Header
         title={"Header"}
         leftChild={<Button text={"Left"} />}
         rightChild={<Button text={"Right"} />}
       />
-      <Button />
-      <div>
-        <Link to="/">Home</Link> | <Link to="/new">New Diary</Link> |{" "}
-        <Link to="/diary">Diary</Link>
-      </div>
-      <button onClick={onClickBtn}> move to new </button>
+      <Button /> */}
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<New />} />
         <Route path="/diary/:id" element={<Diary />} />
+        <Route path="/edit/:id" element={<Edit />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
