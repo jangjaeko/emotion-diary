@@ -7,8 +7,6 @@ import NotFound from "./pages/NotFound";
 import Edit from "./pages/Edit";
 
 import { getEmotionImage } from "./util/get-emotion-image";
-import Button from "./components/button";
-import Header from "./components/Header";
 
 import { useReducer, useRef, createContext } from "react";
 //1. "/" : Home for Emotion Diary
@@ -86,13 +84,6 @@ function App() {
 
   return (
     <>
-      {/* <Header
-        title={"Header"}
-        leftChild={<Button text={"Left"} />}
-        rightChild={<Button text={"Right"} />}
-      />
-      <Button /> */}
-      <button onClick={onDelete(1)}>TEST BUTTON</button>
       <DiaryStateContext value={data}>
         <DiaryDispatchContext value={(onCreate, onDelete, onUpdate)}>
           <Routes>
