@@ -17,20 +17,26 @@ import { useReducer, useRef, createContext } from "react";
 const tempData = [
   {
     id: 1,
-    createdDate: new Date().getTime(),
-    emotionid: 1,
+    createdDate: new Date("2025-12-12").getTime(),
+    emotionId: 1,
     content: "Today I felt so happy!",
   },
   {
     id: 2,
-    createdDate: new Date().getTime(),
-    emotionid: 2,
+    createdDate: new Date("2025-11-11").getTime(),
+    emotionId: 2,
     content: "Today I felt sad.",
+  },
+  {
+    id: 3,
+    createdDate: new Date("2025-12-10").getTime(),
+    emotionId: 3,
+    content: "Today was an average day.",
   },
 ];
 
-const DiaryStateContext = createContext();
-const DiaryDispatchContext = createContext();
+export const DiaryStateContext = createContext();
+export const DiaryDispatchContext = createContext();
 
 function reducer(state, action) {
   switch (action.type) {
