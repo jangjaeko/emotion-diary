@@ -67,9 +67,9 @@ function App() {
       type: "CREATE",
       data: {
         id: dataId.current++,
-        createdDate: new Date().getTime(),
-        emotionid,
-        content,
+        createdDate: createdDate,
+        emotionId: emotionid,
+        content: content,
       },
     });
   };
@@ -91,7 +91,7 @@ function App() {
   return (
     <>
       <DiaryStateContext value={data}>
-        <DiaryDispatchContext value={(onCreate, onDelete, onUpdate)}>
+        <DiaryDispatchContext value={{ onCreate, onDelete, onUpdate }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/new" element={<New />} />
