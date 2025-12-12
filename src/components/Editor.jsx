@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Editor.css";
 import EmotionItem from "./EmotionItem";
 import Button from "./Button";
@@ -16,13 +16,23 @@ const getDateString = (date) => {
   return date.toISOString().slice(0, 10);
 };
 
-export default function Editor({ onSubmit }) {
+export default function Editor({ onSubmit, initialData }) {
   const [selectedEmotion, setSelectedEmotion] = useState(3);
   const [userInput, setUserInput] = useState({
     createdDate: new Date(),
     emotionId: 3,
     content: "",
   });
+
+  useEffect(() => {
+    if (initialData) {
+      setUserInput({
+        createdDate: new Date(Number(initialData.createdDate)),
+        emotionId: initialData.emotionId,
+        content: initialData.content,
+      });
+    }
+  }, [initialData]);
 
   const onChangeDate = (e) => {
     setUserInput({ ...userInput, createdDate: new Date(e.target.value) });

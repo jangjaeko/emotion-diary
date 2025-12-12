@@ -74,10 +74,10 @@ function App() {
     });
   };
   // edit diary
-  const onUpdate = (id, createdDate, emotionid, content) => {
+  const onUpdate = (id, createdDate, emotionId, content) => {
     dispatch({
       type: "UPDATE",
-      data: { id, createdDate, emotionid, content },
+      data: { id, createdDate, emotionId, content },
     });
   };
   // delete diary
