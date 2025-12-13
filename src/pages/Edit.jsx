@@ -6,6 +6,7 @@ import Editor from "../components/Editor";
 import { useContext, useState } from "react";
 import { DiaryDispatchContext } from "../App";
 import { DiaryStateContext } from "../App";
+import useDiary from "../hooks/useDiary";
 export default function Edit() {
   const params = useParams();
   const navigate = useNavigate();
@@ -18,21 +19,7 @@ export default function Edit() {
       return;
     }
   };
-  const data = useContext(DiaryStateContext);
-  const [currentDiaryData, setCurrentDiaryData] = useState();
-  useEffect(() => {
-    const currentDiary = data.find(
-      (item) => String(item.id) === String(params.id)
-    );
-    if (!currentDiary) {
-      window.alert("No such diary exists");
-      navigate("/", { replace: true });
-      return;
-    } else {
-      setCurrentDiaryData(currentDiary);
-    }
-  }, [params.id]);
-
+  const currentDiaryData = useDiary(params.id);
   const onSubmit = (input) => {
     onUpdate(
       params.id,

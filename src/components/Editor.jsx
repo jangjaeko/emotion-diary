@@ -2,14 +2,7 @@ import { useEffect, useState } from "react";
 import "./Editor.css";
 import EmotionItem from "./EmotionItem";
 import Button from "./Button";
-
-const EmotionList = [
-  { emotionId: 1, emotionName: "Happy" },
-  { emotionId: 2, emotionName: "Good" },
-  { emotionId: 3, emotionName: "soso" },
-  { emotionId: 4, emotionName: "bad" },
-  { emotionId: 5, emotionName: "Angry" },
-];
+import { EmotionList } from "../util/constant";
 
 const getDateString = (date) => {
   // yyyy-mm-dd
