@@ -8,59 +8,49 @@ import Edit from "./pages/Edit";
 
 import { getEmotionImage } from "./util/get-emotion-image";
 
-import { useReducer, useRef, createContext } from "react";
+import { useReducer, useRef, createContext, useState, useEffect } from "react";
 //1. "/" : Home for Emotion Diary
 //2. "/new" : write new diary
 //3. "/dirary" : viewing diary contents
 //4. "/edit" : editing diary contents
 
-const tempData = [
-  {
-    id: 1,
-    createdDate: new Date("2025-12-12").getTime(),
-    emotionId: 1,
-    content: "Today I felt so happy!",
-  },
-  {
-    id: 2,
-    createdDate: new Date("2025-11-11").getTime(),
-    emotionId: 2,
-    content: "Today I felt sad.",
-  },
-  {
-    id: 3,
-    createdDate: new Date("2025-12-10").getTime(),
-    emotionId: 3,
-    content: "Today was an average day.",
-  },
-];
-
 export const DiaryStateContext = createContext();
 export const DiaryDispatchContext = createContext();
 
 function reducer(state, action) {
+  let newState;
   switch (action.type) {
+    case "INIT":
+      return action.data;
     case "CREATE": {
-      return [action.data, ...state];
+      newState = [action.data, ...state];
+      break;
     }
     case "UPDATE": {
-      return state.map((item) =>
+      newState = state.map((item) =>
         String(item.id) === String(action.data.id) ? action.data : item
       );
+      break;
     }
     case "DELETE": {
-      return state.filter(
+      newState = state.filter(
         (item) => String(item.id) !== String(action.targetId)
       );
+      break;
     }
+
     default:
       return state;
   }
+  localStorage.setItem("diary", JSON.stringify(newState));
+  return newState;
 }
 
 function App() {
-  const [data, dispatch] = useReducer(reducer, tempData);
-  const dataId = useRef(3);
+  const [data, dispatch] = useReducer(reducer, []);
+  const dataId = useRef(0);
+  const [isLoading, setIsLoading] = useState(true);
+
   //add diary
   const onCreate = (createdDate, emotionid, content) => {
     dispatch({
@@ -73,6 +63,29 @@ function App() {
       },
     });
   };
+  useEffect(() => {
+    const localData = localStorage.getItem("diary");
+    if (!localData) {
+      setIsLoading(false);
+      return;
+    }
+    const parsedData = JSON.parse(localData);
+    let maxId = 0;
+    if (!Array.isArray(parsedData)) {
+      setIsLoading(false);
+      return;
+    }
+    parsedData.forEach((item) => {
+      if (item.id >= maxId) {
+        maxId = item.id + 1;
+      }
+    });
+    dataId.current = maxId;
+
+    dispatch({ type: "INIT", data: parsedData });
+    setIsLoading(false);
+  }, []);
+
   // edit diary
   const onUpdate = (id, createdDate, emotionId, content) => {
     dispatch({
@@ -87,6 +100,9 @@ function App() {
       targetId: id,
     });
   };
+  if (isLoading) {
+    return <div className="App">Loading...</div>;
+  }
 
   return (
     <>
