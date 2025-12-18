@@ -4,8 +4,10 @@ import Header from "../components/Header";
 import Button from "../components/Button.jsx";
 import DiraryList from "../components/DiraryList";
 import { DiaryStateContext } from "../App";
+import usePageTitle from "../hooks/usePageTitle";
 
 export default function Home() {
+  usePageTitle("Emotion Diary");
   // const [searchParams, setSearchParams] = useSearchParams();
   //   console.log(searchParams.get("id")); // /?id=1234 => 1234
   const data = useContext(DiaryStateContext);

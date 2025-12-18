@@ -6,9 +6,11 @@ import { useContext } from "react";
 import { DiaryStateContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import useDiary from "../hooks/useDiary";
+import usePageTitle from "../hooks/usePageTitle";
 export default function Diary() {
   const params = useParams();
   const navigate = useNavigate();
+  usePageTitle(`No.${params.id} Diary`);
 
   const currentDiaryData = useDiary(params.id);
   if (!currentDiaryData) {

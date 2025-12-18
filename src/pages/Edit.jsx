@@ -6,6 +6,7 @@ import Editor from "../components/Editor";
 import { useContext, useState } from "react";
 import { DiaryDispatchContext } from "../App";
 import { DiaryStateContext } from "../App";
+import usePageTitle from "../hooks/usePageTitle";
 import useDiary from "../hooks/useDiary";
 export default function Edit() {
   const params = useParams();
@@ -29,7 +30,7 @@ export default function Edit() {
     );
     navigate("/", { replace: true });
   };
-
+  usePageTitle(`No.${params.id} Edit Diary`);
   return (
     <div>
       <Header

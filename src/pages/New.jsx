@@ -2,8 +2,9 @@ import Header from "../components/Header";
 import Button from "../components/Button";
 import Editor from "../components/Editor";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { use, useContext, useEffect } from "react";
 import { DiaryDispatchContext } from "../App";
+import usePageTitle from "../hooks/usePageTitle";
 
 export default function New() {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ export default function New() {
     onCreate(input.createdDate.getTime(), input.emotionId, input.content);
     navigate("/", { replace: true });
   };
+  usePageTitle("New Diary");
+
   return (
     <div>
       <Header
